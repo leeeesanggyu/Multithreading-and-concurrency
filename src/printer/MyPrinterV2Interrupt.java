@@ -5,9 +5,8 @@ import java.util.Scanner;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import static utils.Logger.log;
-import static utils.ThreadUtil.sleep;
 
-public class MyPrinterV2 {
+public class MyPrinterV2Interrupt {
     public static void main(String[] args) {
         Printer printer = new Printer();
         Thread printerThread = new Thread(printer, "printer");
