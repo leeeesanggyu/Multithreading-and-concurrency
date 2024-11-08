@@ -30,9 +30,11 @@ public class BoundedQueueV3 implements BoundedQueue {
             queue.offer(data);
         } finally {
             this.notify();  // WAIT(스레드 대기집합) -> BLOCKED
-            // notify()로 깨어난 스레드는 바로 동작하는게 아니라 임계영역에서 BLOCKED 상태가 되어서 락을 기다린다.
-            // notify()로 깨우게 되면 계속해서 생산자의 스레드만 깨우는 스레드 기아상태가 될 수도 있기 때문에 notifyAll()을 사용하여 스레드 대기집합의 모든 스레드를 깨워 기아상태를 막을 수 있다.
-            // (생산자 스레드는 모두 깼지만 조건에 맞지않아 다시 WAITING 상태가 되고 소비자 스레드는 조건에 부합해 RUNNABLE이 되기 때문)
+            /*
+            - notify()로 깨어난 스레드는 바로 동작하는게 아니라 임계영역에서 BLOCKED 상태가 되어서 락을 기다린다.
+            - notify()로 깨우게 되면 계속해서 생산자의 스레드만 깨우는 스레드 기아상태가 될 수도 있기 때문에 notifyAll()을 사용하여 스레드 대기집합의 모든 스레드를 깨워 기아상태를 막을 수 있다.
+            - (생산자 스레드는 모두 깼지만 조건에 맞지않아 다시 WAITING 상태가 되고 소비자 스레드는 조건에 부합해 RUNNABLE이 되기 때문
+            */
         }
     }
 
